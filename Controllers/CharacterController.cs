@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RPG.Services.CharacterService;
 
 namespace RPG.Controllers
 {
@@ -10,24 +11,27 @@ namespace RPG.Controllers
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase
     {
-        private List<Character> characters = new List<Character>();
+        private readonly ICharacterService _characterService;
+        public CharacterController(ICharacterService characterService)
+        {
+            _characterService = characterService;
+        }
 
         [HttpGet]
         [Route("GetAll")]
-        public ActionResult<List<Character>> GetAll(){
-            return Ok(characters);
+        public async Task<ActionResult<List<Character>>> GetAll(){
+            return Ok(await _characterService.GetAll());
         }
 
         [HttpGet("{id")]
-        public ActionResult<Character> GetCharacter(int id){
+        public async Task<ActionResult<Character>> GetCharacter(int id){
 
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(await _characterService.GetCharacter(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter){
-            characters.Add(newCharacter);
-            return characters;
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter){
+            return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
 }
