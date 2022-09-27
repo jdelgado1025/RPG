@@ -23,7 +23,7 @@ namespace RPG.Controllers
             return Ok(await _characterService.GetAll());
         }
 
-        [HttpGet("{id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id){
 
             return Ok(await _characterService.GetCharacter(id));
