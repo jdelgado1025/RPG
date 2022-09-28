@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RPG.DataTransferObjects.Character;
 using RPG.Services.CharacterService;
 
 namespace RPG.Controllers
@@ -19,18 +20,18 @@ namespace RPG.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetAll(){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> GetAll(){
             return Ok(await _characterService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetCharacter(int id){
+        public async Task<ActionResult<ServiceResponse<GetCharacterDTO>>> GetCharacter(int id){
 
             return Ok(await _characterService.GetCharacter(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter){
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> AddCharacter(AddCharacterDTO newCharacter){
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
