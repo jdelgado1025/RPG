@@ -1,9 +1,11 @@
+using RPG.DataTransferObjects.Character;
+
 namespace RPG.Services.CharacterService
 {
     public interface ICharacterService
     {
-        Task<ServiceResponse<List<Character>>> GetAll();
-        Task<ServiceResponse<Character>> GetCharacter(int id);
-        Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter);
+        Task<ServiceResponse<List<GetCharacterDTO>>> GetAll();
+        Task<ServiceResponse<GetCharacterDTO>> GetCharacter(int id);
+        Task<ServiceResponse<List<GetCharacterDTO>>> AddCharacter(AddCharacterDTO newCharacter);
     }
 }
