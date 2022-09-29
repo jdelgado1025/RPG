@@ -17,7 +17,12 @@ namespace RPG.Services.CharacterService
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDTO>>();
             Character character = _mapper.Map<Character>(newCharacter);
-            character.Id = characters.Max(c => c.Id) + 1;
+            if(characters.Count == 0){
+                character.Id = 0;
+            }else{
+                character.Id = characters.Max(c => c.Id) + 1;
+            }
+            
             characters.Add(character);
             serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList(); //_mapper.Map<List<GetCharacterDTO>>(characters);
             return serviceResponse;
