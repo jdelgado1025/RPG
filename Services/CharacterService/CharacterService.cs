@@ -28,7 +28,7 @@ namespace RPG.Services.CharacterService
             try
             {
                 var character = characters.First(c => c.Id == id);
-                characters.Remove(_mapper.Map<Character>(character));
+                characters.Remove(character);
                 serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
             }
             catch (Exception ex)
