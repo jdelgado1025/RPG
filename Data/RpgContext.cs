@@ -8,6 +8,11 @@ namespace RPG.Data
 {
     public class RpgContext : DbContext
     {
-        
+        public RpgContext(DbContextOptions<RpgContext> options): base(options)
+        {
+            
+        }
+        //Table in SQL
+        DbSet<Character> Characters {get; set;}
     }
 }
