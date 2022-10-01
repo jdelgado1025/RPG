@@ -7,11 +7,12 @@ namespace RPG.Services.CharacterService
     {
         private static List<Character> characters = new List<Character>();
         private readonly IMapper _mapper;
+        private readonly RpgContext _context;
 
-        public CharacterService(IMapper mapper)
+        public CharacterService(IMapper mapper, RpgContext context)
         {
             _mapper = mapper;
-            
+            _context = context;
         }
         public async Task<ServiceResponse<List<GetCharacterDTO>>> AddCharacter(AddCharacterDTO newCharacter)
         {
@@ -49,7 +50,10 @@ namespace RPG.Services.CharacterService
 
         public async Task<ServiceResponse<List<GetCharacterDTO>>> GetAll()
         {
-            return new ServiceResponse<List<GetCharacterDTO>>() {Data = characters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList()}; //_mapper.Map<List<GetCharacterDTO>>(characters);
+            var response = new ServiceResponse<List<GetCharacterDTO>>();
+            var dbCharacters = await _context.Characters.ToListAsync();
+            response.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterDTO>(c)).ToList();
+            return response; //_mapper.Map<List<GetCharacterDTO>>(characters);
         }
 
         public async Task<ServiceResponse<GetCharacterDTO>> GetCharacter(int id)
