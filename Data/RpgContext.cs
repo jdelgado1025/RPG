@@ -14,5 +14,6 @@ namespace RPG.Data
         }
         //Table in SQL
         public DbSet<Character> Characters {get; set;}
+        public DbSet<User> Users { get; set; }
     }
 }
